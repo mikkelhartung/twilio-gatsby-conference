@@ -7,6 +7,8 @@ body {
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: #2b2b2b;
+  color: white;
 }
 article,
 aside,
@@ -21,6 +23,7 @@ nav,
 section,
 summary {
   display: block;
+  color: white;
 }
 audio,
 canvas,
@@ -236,6 +239,7 @@ h1 {
   text-rendering: optimizeLegibility;
   font-size: 2.25rem;
   line-height: 1.1;
+  color: white;
 }
 h2 {
   margin-left: 0;
@@ -385,6 +389,7 @@ p {
   padding-right: 0;
   padding-top: 0;
   margin-bottom: 1.45rem;
+  color: white;
 }
 figure {
   margin-left: 0;
