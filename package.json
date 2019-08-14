@@ -21,7 +21,7 @@
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-helmet": "^5.2.1",
-    "react-netlify-identity-widget": "^0.1.4",
+    "react-netlify-identity-widget": "^0.0.28",
     "twilio": "^3.33.3",
     "twilio-video": "^2.0.0-beta12"
   },

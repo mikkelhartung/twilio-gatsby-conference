@@ -1,6 +1,6 @@
+import React, { useState } from "react"
 import { Link } from "gatsby"
 import PropTypes from "prop-types"
-import React, { useState } from "react"
 import IdentityModal from "react-netlify-identity-widget"
 
 const Header = ({ siteTitle }) => {
