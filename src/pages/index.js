@@ -68,16 +68,17 @@ const IndexPage = () => {
   return (
     <Layout>
       <SEO title="Home" />
-      {identity && identity.user ? (
-        !token ? (
+      {identity &&
+        identity.user &&
+        (!token ? (
           <StartForm storeToken={setToken} />
         ) : (
           <Video token={token} />
-        )
-      ) : (
+        ))}
+
+      {identity && !identity.user && (
         <button onClick={() => setShowDialog(true)}>Log In</button>
       )}
-
       <IdentityModal
         showDialog={showDialog}
         onCloseDialog={() => setShowDialog(false)}
