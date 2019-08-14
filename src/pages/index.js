@@ -3,6 +3,9 @@ import Layout from "../components/layout"
 import SEO from "../components/seo"
 import StartForm from "../components/StartForm"
 import TwilioVideo from "twilio-video"
+import { useNetlifyIdentity } from "react-netlify-identity-widget"
+import IdentityModal from "react-netlify-identity-widget"
+
 /**
  * TO DO:
  *  1. Show local video
@@ -57,10 +60,28 @@ const Video = ({ token }) => {
 
 const IndexPage = () => {
   const [token, setToken] = useState(false)
+  const [showDialog, setShowDialog] = useState(false)
+
+  const identity = useNetlifyIdentity(
+    "https://gatsby-netlify-identity-functions.netlify.com"
+  )
   return (
     <Layout>
       <SEO title="Home" />
-      {!token ? <StartForm storeToken={setToken} /> : <Video token={token} />}
+      {identity && identity.user ? (
+        !token ? (
+          <StartForm storeToken={setToken} />
+        ) : (
+          <Video token={token} />
+        )
+      ) : (
+        <button onClick={() => setShowDialog(true)}>Log In</button>
+      )}
+
+      <IdentityModal
+        showDialog={showDialog}
+        onCloseDialog={() => setShowDialog(false)}
+      />
     </Layout>
   )
 }

@@ -4,8 +4,6 @@ import PropTypes from "prop-types"
 import IdentityModal from "react-netlify-identity-widget"
 
 const Header = ({ siteTitle }) => {
-  const [showDialog, setShowDialog] = useState(false)
-
   return (
     <header
       style={{
@@ -31,12 +29,7 @@ const Header = ({ siteTitle }) => {
             {siteTitle}
           </Link>
         </h1>
-        <button onClick={() => setShowDialog(true)}>Log In</button>
       </div>
-      <IdentityModal
-        showDialog={showDialog}
-        onCloseDialog={() => setShowDialog(false)}
-      />
     </header>
   )
 }

@@ -7,11 +7,13 @@ const Identity = () => {
   )
 
   return identity && identity.user ? (
-    <>
+    <div>
       <p>Hello {identity.user.user_metadata.full_name}</p>
       <pre>{JSON.stringify(identity, null, 2)}</pre>
-    </>
-  ) : null
+    </div>
+  ) : (
+    "nada"
+  )
 }
 
 export default Identity
