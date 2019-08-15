@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useRef } from "react"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
-import StartForm from "../components/StartForm"
+
 import TwilioVideo from "twilio-video"
 import { useNetlifyIdentity } from "react-netlify-identity-widget"
 import IdentityModal from "react-netlify-identity-widget"
+import StartForm from "../components/StartForm"
 
 /**
  * TO DO:
@@ -77,7 +78,11 @@ const IndexPage = () => {
         ))}
 
       {identity && !identity.user && (
-        <button onClick={() => setShowDialog(true)}>Log In</button>
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <button className="btn__rounded" onClick={() => setShowDialog(true)}>
+            Log In
+          </button>
+        </div>
       )}
       <IdentityModal
         showDialog={showDialog}
