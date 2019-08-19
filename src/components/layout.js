@@ -12,7 +12,7 @@ import "./layout.css"
 
 const Layout = ({ children }) => {
   const identity = useNetlifyIdentity(
-    "https://amazing-shannon-e80325.netlify.com"
+    "https://camtion.netlify.com"
   )
 
   return (
