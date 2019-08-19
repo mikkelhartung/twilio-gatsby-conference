@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useRef } from "react"
+import React, { useState } from "react"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 
-import TwilioVideo from "twilio-video"
 import { useNetlifyIdentity } from "react-netlify-identity-widget"
 import IdentityModal from "react-netlify-identity-widget"
 import StartForm from "../components/StartForm"
+import Video from "../components/Video"
 
 /**
  * TO DO:
@@ -15,57 +15,11 @@ import StartForm from "../components/StartForm"
  *  4. Handle events
  **/
 
-const Video = ({ token }) => {
-  const localVidRef = useRef()
-  const remoteVidRef = useRef()
-
-  useEffect(() => {
-    TwilioVideo.connect(token, { video: true, audio: true, name: "test" }).then(
-      room => {
-        // Attach the local video
-        TwilioVideo.createLocalVideoTrack().then(track => {
-          localVidRef.current.appendChild(track.attach())
-        })
-
-        const addParticipant = participant => {
-          console.log("new participant!")
-          console.log(participant)
-          participant.tracks.forEach(publication => {
-            if (publication.isSubscribed) {
-              const track = publication.track
-
-              remoteVidRef.current.appendChild(track.attach())
-              console.log("attached to remote video")
-            }
-          })
-
-          participant.on("trackSubscribed", track => {
-            console.log("track subscribed")
-            remoteVidRef.current.appendChild(track.attach())
-          })
-        }
-
-        room.participants.forEach(addParticipant)
-        room.on("participantConnected", addParticipant)
-      }
-    )
-  }, [token])
-
-  return (
-    <div>
-      <div ref={localVidRef} />
-      <div ref={remoteVidRef} />
-    </div>
-  )
-}
-
 const IndexPage = () => {
   const [token, setToken] = useState(false)
   const [showDialog, setShowDialog] = useState(false)
 
-  const identity = useNetlifyIdentity(
-    "https://gatsby-netlify-identity-functions.netlify.com"
-  )
+  const identity = useNetlifyIdentity("https://camtion.netlify.com")
   return (
     <Layout>
       <SEO title="Home" />
@@ -74,20 +28,29 @@ const IndexPage = () => {
         (!token ? (
           <StartForm storeToken={setToken} />
         ) : (
-          <Video token={token} />
+          <div>
+            <Video token={token} />
+          </div>
         ))}
 
+      <IdentityModal
+        showDialog={showDialog}
+        onCloseDialog={() => setShowDialog(false)}
+      />
       {identity && !identity.user && (
-        <div style={{ display: "flex", justifyContent: "center" }}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "100vh",
+          }}
+        >
           <button className="btn__rounded" onClick={() => setShowDialog(true)}>
             Log In
           </button>
         </div>
       )}
-      <IdentityModal
-        showDialog={showDialog}
-        onCloseDialog={() => setShowDialog(false)}
-      />
     </Layout>
   )
 }

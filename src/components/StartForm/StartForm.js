@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import axios from "axios"
+import AbtionLogo from "../../images/logo_lgbt.png"
 
 const StartForm = ({ storeToken }) => {
   const [name, setName] = useState("")
@@ -25,10 +26,11 @@ const StartForm = ({ storeToken }) => {
 
   return (
     <div style={{ display: "flex", justifyContent: "center" }}>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="room-form">
+        <img src={AbtionLogo} width="350" style={{ paddingBottom: "2rem" }} />
         <label htmlFor="name">
-          Display Name: <br />
           <input
+            placeholder="Display name"
             type="text"
             id="name"
             name="name"
@@ -39,8 +41,8 @@ const StartForm = ({ storeToken }) => {
         </label>
         <br />
         <label htmlFor="room">
-          Room to Join: <br />
           <input
+            placeholder="Room name"
             type="text"
             id="room"
             name="room"
@@ -50,7 +52,12 @@ const StartForm = ({ storeToken }) => {
           />
         </label>
         <br />
-        <button className="btn__rounded" type="submit">
+        <button
+          className={
+            name && room !== "" ? "btn__rounded" : "btn__rounded disabled"
+          }
+          type="submit"
+        >
           Join room
         </button>
       </form>
